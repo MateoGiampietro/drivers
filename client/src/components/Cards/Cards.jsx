@@ -1,17 +1,25 @@
 import Card from '../Card/Card';
 
-export default function Cards({drivers}) {
+export default function Cards({ drivers }) {
 
-    const cardTest = console.log(drivers)
+  const cardComponents = drivers.map((driver) => {
+    if (typeof driver !== undefined) {
+      return (
+        <Card
+          key={driver[0].id}
+          id={driver[0].id}
+          name={driver[0].name.forename}
+          teams={driver[0].teams}
+          image={driver[0].image.url}
+        />
+      );
+    }
+    return null;
+  });
 
-   /* const cardComponents = drivers.map((driver) => (
-      <Card
-        key = {driver.id}
-        id = {driver.id}
-        name = {driver.name}
-        teams = {driver.teams}
-        image = {driver.image}
-      />
-    )); */
-   return (<div>{cardTest}</div>);
+  return (
+    <div>
+      {cardComponents}
+    </div>
+  );
 }
