@@ -5,17 +5,19 @@ import axios from 'axios';
 
 export default function Home({ drivers, setDrivers, onSearch }) {
 
-    /* useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios('http://localhost:3001/drivers');
-                setDrivers([...drivers, data]);
-            } catch (error) {
-                console.log(error.message);
-            }
+    useEffect(() => {
+        const fetchDrivers = async () => {
+          try {
+            const { data } = await axios.get('http://localhost:5000/drivers');
+            setDrivers(data);
+          } catch (error) {
+            console.log(error.message);
+            alert("Error al cargar los pilotos.")
+          }
         };
-        fetchData();
-    }, []); */
+    
+        fetchDrivers();
+      }, []);
 
     return (
         <div className='home'>

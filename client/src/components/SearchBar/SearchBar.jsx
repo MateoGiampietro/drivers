@@ -18,7 +18,7 @@ export default function SearchBar(props) {
    return (
       <div className='searchBar'>
          <input type='search' onChange={handleChange} value={name}/>
-         <button onClick={handleClick}>Agregar</button>
+         <button onClick={handleClick}>Buscar</button>
       </div>
    );
 }

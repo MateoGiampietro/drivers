@@ -6,11 +6,11 @@ export default function Cards({ drivers }) {
     if (typeof driver !== undefined) {
       return (
         <Card
-          key={driver[0].id}
-          id={driver[0].id}
-          name={driver[0].name.forename}
-          teams={driver[0].teams}
-          image={driver[0].image.url}
+          key={driver.id}
+          id={driver.id}
+          name={driver.name.forename}
+          teams={driver.teams}
+          image={driver.image.url}
         />
       );
     }
