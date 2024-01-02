@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import SearchBar from '../SearchBar/SearchBar';
+import Nav from '../Nav/Nav.jsx';
 import Cards from '../Cards/Cards';
 import axios from 'axios';
 
@@ -22,7 +22,7 @@ export default function Home({ drivers, setDrivers, onSearch }) {
     return (
         <div className='home'>
             <h3>Este es el home</h3>
-            <SearchBar onSearch={onSearch} />
+            <Nav onSearch={onSearch}/>
             <Cards drivers={drivers} />
         </div>
     );

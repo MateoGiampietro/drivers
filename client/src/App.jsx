@@ -4,6 +4,7 @@ import Home from './components/Home/Home.jsx'
 import Landing from './components/Landing/Landing.jsx';
 import { useState } from 'react';
 import Detail from './components/Detail/Detail.jsx';
+import Form from './components/Form/Form.jsx';
 
 function App() {
   const [ drivers, setDrivers ] = useState([]);
@@ -33,6 +34,7 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/home' element={<Home onSearch={onSearch} drivers={drivers} setDrivers={setDrivers} />}/>
         <Route path='/detail/:id' element={<Detail drivers={drivers}/>}/>
+        <Route path='/form' element={<Form drivers={drivers}/>}/>
       </Routes>
     </div>
   )
