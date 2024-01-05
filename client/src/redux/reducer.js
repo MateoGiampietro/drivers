@@ -8,17 +8,20 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type){
         default:
             return {...state};
-        case "FILTER":
-            if (action.payload === "All") return {
+        case "FILTERBYNAME":
+            if (action.payload === "") return {
                 ...state,
                 drivers: state.allDrivers
             }
 
-            const filterDrivers = state.allDrivers.filter((driver) => driver.id === action.payload )
-            
+            const filteredDrivers = state.allDrivers.filter((driver) =>
+                driver.name.forename.toLowerCase() === action.payload.toLowerCase() ||
+                driver.name.surname.toLowerCase() === action.payload.toLowerCase()
+            );
+
             return {
                 ...state,
-                drivers: filterDrivers
+                drivers: filteredDrivers
             }
 
         case "SET_ALL_DRIVERS":
@@ -35,10 +38,9 @@ const rootReducer = (state = initialState, action) => {
             }
 
             const teamFilter = state.allDrivers.filter((driver) => {
-                const teamsArray = (driver.teams && driver.teams.split(','));
-                return teamsArray.includes(action.payload)
+                const teamsArray = (driver.teams && driver.teams.split(',')) || [];
+                return teamsArray.some((team) => team.trim() === action.payload);
             })
-            console.log(state.allDrivers)
 
             return {
                 ...state,

@@ -3,7 +3,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
 // import './Nav.css'
 
-export default function Nav(props) {
+export default function Nav() {
     return (
         <div className='nav'>
             <header></header>
@@ -15,7 +15,7 @@ export default function Nav(props) {
                 <button>Add Driver</button>
             </Link>
             
-            <SearchBar onSearch={props.onSearch} />
+            <SearchBar/>
         </div>
     )
 }

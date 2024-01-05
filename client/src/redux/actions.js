@@ -1,16 +1,16 @@
-export const filterDrivers = (id) => {
+export const filterDriversByName = (name) => {
     return {
-        type: "FILTER",
-        payload: id
+        type: "FILTERBYNAME",
+        payload: name
     };
 };
 
-export const orderDrivers = (id) => {
+/* export const orderDrivers = (id) => {
     return {
         type: "ORDER",
         payload: id
     };
-};
+}; */
 
 export const filterDriversByTeam = (team) => {
     return {

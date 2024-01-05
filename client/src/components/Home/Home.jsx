@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import Nav from '../Nav/Nav.jsx';
 import Cards from '../Cards/Cards';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterDriversByTeam, setAllDrivers } from '../../redux/actions.js';
 
-export default function Home({ drivers, setDrivers, onSearch }) {
+export default function Home() {
     const dispatch = useDispatch();
+    const drivers = useSelector((state) => state.drivers);
     
     const handleFilter = event => {
       dispatch(filterDriversByTeam(event.target.value));
@@ -17,7 +18,6 @@ export default function Home({ drivers, setDrivers, onSearch }) {
           try {
             const { data } = await axios.get('http://localhost:5000/drivers');
             dispatch(setAllDrivers(data));
-            setDrivers(data);
           } catch (error) {
             console.log(error.message);
             alert("Error al cargar los pilotos.")
@@ -30,7 +30,7 @@ export default function Home({ drivers, setDrivers, onSearch }) {
     return (
         <div className='home'>
             <h3>Este es el home</h3>
-            <Nav onSearch={onSearch}/>
+            <Nav/>
             <select name="filter" onChange={handleFilter}>
               <option value="All">All</option>
               <option value="McLaren">McLaren</option>
@@ -58,7 +58,7 @@ export default function Home({ drivers, setDrivers, onSearch }) {
               <option value="Porsche">Porsche</option>
               <option value="Force India">Force India</option>
             </select>
-            <Cards drivers={drivers} />
+            <Cards drivers={drivers}/>
         </div>
     );
 }

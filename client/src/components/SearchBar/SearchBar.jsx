@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './SearchBar.css'
+import { filterDriversByName } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
-export default function SearchBar(props) {
-
+export default function SearchBar() {
+   const dispatch = useDispatch();
    const [ name, setName ] = useState('');
 
    const handleChange = (event) => {
@@ -11,7 +13,7 @@ export default function SearchBar(props) {
 
    const handleClick = (event) => {
       event.preventDefault();
-      props.onSearch(name);
+      dispatch(filterDriversByName(name));
       setName('');
    }
 
