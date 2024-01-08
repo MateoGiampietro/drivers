@@ -5,12 +5,12 @@ export const filterDriversByName = (name) => {
     };
 };
 
-/* export const orderDrivers = (id) => {
+export const orderDrivers = (order) => {
     return {
         type: "ORDER",
-        payload: id
+        payload: order
     };
-}; */
+};
 
 export const filterDriversByTeam = (team) => {
     return {
@@ -21,7 +21,14 @@ export const filterDriversByTeam = (team) => {
 
 export const setAllDrivers = (drivers) => {
     return {
-      type: "SET_ALL_DRIVERS",
+      type: "SETALLDRIVERS",
       payload: drivers
     };
   };
+
+export const setPage = (page) => {
+    return {
+        type: "SETPAGE",
+        payload: page
+    }
+}
