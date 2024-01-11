@@ -1,4 +1,4 @@
-/* import './Card.css' */
+import './Card.css'
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
@@ -9,7 +9,7 @@ export default function Card(props) {
                 <h2>{props.name}</h2>
             </Link>
             <h4>Escuderías: {props.teams}</h4>
-            {/* <img src={props.image.url} alt={props.id} /> */}
+            <img src={props.image} alt={props.id}/>
         </div>
     );
 }

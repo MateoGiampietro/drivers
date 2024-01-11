@@ -1,0 +1,20 @@
+.userForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; /* Ajusta el ancho del formulario según tus necesidades */
+    margin: auto; /* Centra el formulario horizontalmente */
+}
+  
+.userForm label {
+    margin-bottom: 5px; /* Espacio entre los labels y los inputs */
+}
+  
+.userForm input {
+    padding: 5px;
+    margin-bottom: 10px; /* Espacio entre los inputs */
+}
+  
+.userForm button {
+    margin-top: 10px; /* Espacio entre el último input y el botón */
+}
+  

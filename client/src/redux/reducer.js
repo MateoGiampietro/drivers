@@ -23,10 +23,20 @@ const rootReducer = (state = initialState, action) => {
                 drivers: state.allDrivers
             }
 
-            const filteredDrivers = state.allDrivers.filter((driver) =>
-                driver.name.forename.toLowerCase() === action.payload.toLowerCase() ||
-                driver.name.surname.toLowerCase() === action.payload.toLowerCase()
-            );
+            const filteredDrivers = state.allDrivers.filter((driver) => {
+                if (typeof driver.name === 'object' && driver.name !== null) {
+                  return (
+                    (driver.name.forename && driver.name.forename.toLowerCase() === action.payload.toLowerCase()) ||
+                    (driver.name.surname && driver.name.surname.toLowerCase() === action.payload.toLowerCase())
+                  );
+                } else if (typeof driver.name === 'string') {
+                  return (
+                    (driver.name.toLowerCase() === action.payload.toLowerCase()) ||
+                    (driver.lastName && driver.lastName.toLowerCase() === action.payload.toLowerCase())
+                  );
+                }
+              });
+              
 
             return {
                 ...state,
@@ -58,20 +68,27 @@ const rootReducer = (state = initialState, action) => {
 
         case "ORDER":
             const orderCopy = [...state.allDrivers];
-
-            if(action.payload === "aNombre")
-                orderCopy.sort((a, b) => a.name.forename.localeCompare(b.name.forename));
-            if(action.payload === "dNombre")
-                orderCopy.sort((a, b) => b.name.forename.localeCompare(a.name.forename));
-            if(action.payload === "aNacimiento")
-                orderCopy.sort((a, b) => a.dob.localeCompare(b.dob));
-            if(action.payload === "dNacimiento")
-                orderCopy.sort((a, b) => b.dob.localeCompare(a.dob));
-
+            
+            orderCopy.sort((a, b) => {
+                const nameA = (a.name && a.name.forename) || "";
+                const nameB = (b.name && b.name.forename) || "";
+            
+                const dobA = a.dob || "";
+                const dobB = b.dob || "";
+            
+                if (action.payload === "aNombre") return nameA.localeCompare(nameB);
+                if (action.payload === "dNombre") return nameB.localeCompare(nameA);
+                if (action.payload === "aNacimiento") return dobA.localeCompare(dobB);
+                if (action.payload === "dNacimiento") return dobB.localeCompare(dobA);
+            
+                return 0;
+            });
+            
             return {
                 ...state,
                 drivers: orderCopy
-            }
+            };
+              
 
         case "ERROR":
             errors.errors = state.payload;

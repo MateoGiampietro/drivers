@@ -33,23 +33,29 @@ export default function Home() {
     }
 
     useEffect(() => {
-        const fetchDrivers = async () => {
-          try {
-            const { data } = await axios.get('http://localhost:5000/drivers');
-            dispatch(setAllDrivers(data));
-          } catch (error) {
-            console.log(error.message);
-            alert("Error al cargar los pilotos.")
-          }
-        };
-    
-        fetchDrivers();
-      }, []);
+      const fetchDrivers = async () => {
+        try {
+          const responseDB = await axios.get('http://localhost:3001/drivers', {
+            headers: {
+              'Cache-Control': 'no-cache',
+            },
+          });
 
+          const responseAPI = await axios.get('http://localhost:5000/drivers');
+
+          dispatch(setAllDrivers([...responseAPI.data, ...responseDB.data]));
+
+        } catch (error) {
+          console.log(error.message);
+          alert("Error al cargar los pilotos.")
+        }
+      };
+    
+      fetchDrivers();
+      }, []);
+      
     return (
         <div className='home'>
-            <h3>Este es el home</h3>
-            <Nav/>
             <select name="filter" onChange={handleFilter}>
               <option value="All">All</option>
               <option value="McLaren">McLaren</option>
@@ -85,8 +91,8 @@ export default function Home() {
             </select>
             <Cards drivers={currentDrivers}/>
             <select name="page" onChange={handlePage}>
-              {pageNumbers.map((num) => (
-                <option value={num}>{num}</option>
+              {pageNumbers.map((num, index) => (
+                <option key={index} value={num}>{num}</option>
               ))}
             </select>
         </div>

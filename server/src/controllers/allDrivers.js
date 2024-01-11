@@ -5,7 +5,7 @@ const allDrivers = async (req, res) => {
         const allDrivers = await Driver.findAll();
         allDrivers.map((driver) => {
             if (!driver.image) {
-                driver.image = "default_image.jpg"
+                driver.image = "C:\Users\giamp\Downloads\cr-pi-drivers-main\client\public\logo_default.png"
             }
         });
         return res.status(200).json(allDrivers)

@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Validation from '../Validation/Validation.jsx';
+import "./Form.css"
+import axios from 'axios';
 
-export default function Form({ login }) {
+export default function Form() {
 
     const [ userData, setUserData ] = useState({
         name: '' ,
@@ -30,35 +32,55 @@ export default function Form({ login }) {
         Validation({...userData, [property]: value}, errors, setErrors);
     }
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        login(userData); // acomodar handleSubmit ya que el login es del rickandmorty y aca no es necesario.
+        
+        try {
+
+            const response = await axios.post('http://localhost:3001/drivers', userData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer tu_token_de_autenticacion',
+                },
+            });
+
+            if (response.status === 200) {
+                console.log("Se ha subido tu driver a la base de datos.")
+            } else {
+                console.log("Algo ha salido mal.")
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     return (
-        <form>
-            <label htmlFor='name'>Nombre:</label>
-            <input type='text' name='name' value={userData.name} onChange={handleChange}/>
+        <div>
+            <form className='userForm'>
+                <label htmlFor='name'>Nombre:</label>
+                <input type='text' name='name' value={userData.name} onChange={handleChange}/>
 
-            <label htmlFor='lastName'>Apellido:</label>
-            <input type='text' name='lastName' value={userData.lastName} onChange={handleChange}/>
+                <label htmlFor='lastName'>Apellido:</label>
+                <input type='text' name='lastName' value={userData.lastName} onChange={handleChange}/>
 
-            <label htmlFor='nationality'>Nacionalidad:</label>
-            <input type='text' name='nationality' value={userData.nationality} onChange={handleChange}/>
+                <label htmlFor='nationality'>Nacionalidad:</label>
+                <input type='text' name='nationality' value={userData.nationality} onChange={handleChange}/>
 
-            <label htmlFor='image'>Imagen:</label>
-            <input type='text' name='image' value={userData.image} onChange={handleChange}/>
+                <label htmlFor='image'>Imagen:</label>
+                <input type='text' name='image' value={userData.image} onChange={handleChange}/>
 
-            <label htmlFor='bornDate'>Fecha de Nacimiento:</label>
-            <input type='text' name='bornDate' value={userData.bornDate} onChange={handleChange}/>
+                <label htmlFor='bornDate'>Fecha de Nacimiento:</label>
+                <input type='text' name='bornDate' value={userData.bornDate} onChange={handleChange}/>
 
-            <label htmlFor='description'>Descripcion:</label>
-            <input type='text' name='description' value={userData.description} onChange={handleChange}/>
+                <label htmlFor='description'>Descripcion:</label>
+                <input type='text' name='description' value={userData.description} onChange={handleChange}/>
 
-            <label htmlFor='teams'>Escuderias:</label>
-            <input type='text' name='teams' value={userData.teams} onChange={handleChange}/>
+                <label htmlFor='teams'>Escuderias:</label>
+                <input type='text' name='teams' value={userData.teams} onChange={handleChange}/>
 
-            <button onClick={handleSubmit}>Submit</button>
-        </form>
+                <button onClick={handleSubmit}>Submit</button>
+            </form>
+        </div>
     )
 }
