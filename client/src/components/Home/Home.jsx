@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import Nav from '../Nav/Nav.jsx';
 import Cards from '../Cards/Cards';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterDriversByTeam, orderDrivers, setAllDrivers, setPage } from '../../redux/actions.js';
+import "./Home.css";
 
 export default function Home() {
     const dispatch = useDispatch();

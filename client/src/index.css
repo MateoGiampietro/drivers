@@ -63,7 +63,7 @@ button:focus-visible {
 body {
   margin: 0;
   padding: 0;
-  background-image: url('C:\Users\giamp\Downloads\cr-pi-drivers-main\client\public\f1_logo.jpg');
+  background-image: url('/f1_logo.jpg');
   background-size: cover;
   min-height: 100vh;
   background-position: center;

@@ -24,7 +24,7 @@ export const setAllDrivers = (drivers) => {
       type: "SETALLDRIVERS",
       payload: drivers
     };
-  };
+};
 
 export const setPage = (page) => {
     return {

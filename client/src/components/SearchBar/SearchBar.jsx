@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './SearchBar.css'
+import './SearchBar.css';
 import { filterDriversByName } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 

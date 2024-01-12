@@ -1,5 +1,6 @@
 const initialState = {
     drivers: [],
+    teams: [],
     allDrivers: [],
     currentPage: 1,
     driversPerPage: 9,
@@ -56,7 +57,7 @@ const rootReducer = (state = initialState, action) => {
                 drivers: state.allDrivers
             }
 
-            const teamFilter = state.allDrivers.filter((driver) => {
+            const teamFilter = state.drivers.filter((driver) => {
                 const teamsArray = (driver.teams && driver.teams.split(',')) || [];
                 return teamsArray.some((team) => team.trim() === action.payload);
             })
@@ -67,7 +68,7 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "ORDER":
-            const orderCopy = [...state.allDrivers];
+            const orderCopy = [...state.drivers];
             
             orderCopy.sort((a, b) => {
                 const nameA = (a.name && a.name.forename) || "";
@@ -88,13 +89,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 drivers: orderCopy
             };
-              
 
         case "ERROR":
             errors.errors = state.payload;
             if (errors.hasOwnProperty("errors")) {
                 return errors
-            }
+            };
     }
 };
 

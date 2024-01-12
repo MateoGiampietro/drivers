@@ -5,13 +5,14 @@
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    text-align: left;
-    display: inline-block;
+    text-align: center;
+    display: inline table;
     background-color: #ff0000;
 }
 
 .card-container h2 {
     margin-bottom: 10px;
+    color: black;
 }
 
 .card-container h4 {

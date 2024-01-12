@@ -6,6 +6,10 @@ export default function Detail({ drivers }) {
     const regex = /\d+/;
     const id = location.pathname.match(regex)[0];
     const driver = drivers.filter((driver) => driver.id === Number(id));
+    
+    const imageUrl = driver[0].image === "default"
+        ? "/logo_default.png"
+        : driver[0].image.url
 
     if (driver[0].name.forename) {
         return (
@@ -20,7 +24,7 @@ export default function Detail({ drivers }) {
                 </div>
     
                 <div className="photo-container">
-                    <img src={driver[0].image.url} alt={driver[0].id}/>
+                    <img src={imageUrl} alt={driver[0].id}/>
                 </div>
             </div>
         )
@@ -37,7 +41,7 @@ export default function Detail({ drivers }) {
                 </div>
     
                 <div className="photo-container">
-                    <img src={driver[0].image.url} alt={driver[0].id}/>
+                    <img src={imageUrl} alt={driver[0].id}/>
                 </div>
             </div>
         )

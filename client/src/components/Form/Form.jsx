@@ -39,8 +39,7 @@ export default function Form() {
 
             const response = await axios.post('http://localhost:3001/drivers', userData, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer tu_token_de_autenticacion',
+                    'Content-Type': 'application/json'
                 },
             });
 
