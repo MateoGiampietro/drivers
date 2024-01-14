@@ -35,6 +35,7 @@ export default function Home() {
     useEffect(() => {
       const fetchDrivers = async () => {
         try {
+
           const responseDB = await axios.get('http://localhost:3001/drivers', {
             headers: {
               'Cache-Control': 'no-cache',

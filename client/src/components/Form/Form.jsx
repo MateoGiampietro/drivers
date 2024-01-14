@@ -14,6 +14,7 @@ export default function Form() {
         description: '',
         teams: []
     });
+
     const [ errors, setErrors ] = useState({
         name: '' ,
         lastName: '',
@@ -36,7 +37,6 @@ export default function Form() {
         event.preventDefault();
         
         try {
-
             const response = await axios.post('http://localhost:3001/drivers', userData, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,26 +57,46 @@ export default function Form() {
     return (
         <div>
             <form className='userForm'>
-                <label htmlFor='name'>Nombre:</label>
-                <input type='text' name='name' value={userData.name} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='name'>Nombre:</label>
+                    <input type='text' name='name' value={userData.name} onChange={handleChange}/>
+                    {errors.name && <span className="error-message">{errors.name}</span>}
+                </div>
 
-                <label htmlFor='lastName'>Apellido:</label>
-                <input type='text' name='lastName' value={userData.lastName} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='lastName'>Apellido:</label>
+                    <input type='text' name='lastName' value={userData.lastName} onChange={handleChange}/>
+                    {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+                </div>
 
-                <label htmlFor='nationality'>Nacionalidad:</label>
-                <input type='text' name='nationality' value={userData.nationality} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='nationality'>Nacionalidad:</label>
+                    <input type='text' name='nationality' value={userData.nationality} onChange={handleChange}/>
+                    {errors.nationality && <span className="error-message">{errors.nationality}</span>}
+                </div>
 
-                <label htmlFor='image'>Imagen:</label>
-                <input type='text' name='image' value={userData.image} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='image'>Imagen:</label>
+                    <input type='text' name='image' value={userData.image} onChange={handleChange}/>
+                    {errors.image && <span className="error-message">{errors.image}</span>}
+                </div>
 
-                <label htmlFor='bornDate'>Fecha de Nacimiento:</label>
-                <input type='text' name='bornDate' value={userData.bornDate} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='bornDate'>Fecha de Nacimiento:</label>
+                    <input type='text' name='bornDate' value={userData.bornDate} onChange={handleChange}/>
+                    {errors.bornDate && <span className="error-message">{errors.bornDate}</span>}
+                </div>
 
-                <label htmlFor='description'>Descripcion:</label>
-                <input type='text' name='description' value={userData.description} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='description'>Descripcion:</label>
+                    <input type='text' name='description' value={userData.description} onChange={handleChange}/>
+                    {errors.description && <span className="error-message">{errors.description}</span>}
+                </div>
 
-                <label htmlFor='teams'>Escuderias:</label>
-                <input type='text' name='teams' value={userData.teams} onChange={handleChange}/>
+                <div className="form-group">
+                    <label htmlFor='teams'>Escuderias:</label>
+                    <input type='text' name='teams' value={userData.teams} onChange={handleChange}/>
+                </div>
 
                 <button onClick={handleSubmit}>Submit</button>
             </form>

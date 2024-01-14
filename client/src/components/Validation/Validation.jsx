@@ -1,52 +1,52 @@
 export default function Validation(userData, errors, setErrors) {
-    const name = userData.name;
-    const lastName = userData.lastName;
-    const nationality = userData.nationality;
-    const image = userData.image;
-    const bornDate = userData.bornDate.split("-");
-    const description = userData.description;
-    const teams = userData.teams;
+    const { name, lastName, nationality, image, bornDate, description } = userData;
 
-    const nationalityRegex = /^(?:Afghan|Albanian|Algerian|American|Andorran|Angolan|Antiguans?|Argentine|Armenian|Australian|Austrian|Azerbaijani|Bahamian|Bahraini|Bangladeshi|Barbadian|Barbudans?|Batswana|Belarusian|Belgian|Belizean|Beninese|Bhutanese|Bolivian|Bosnian|Brazilian|British|Bruneian|Bulgarian|Burkinabe|Burmese|Burundian|Cabo Verdean|Cambodian|Cameroonian|Canadian|Central African|Chadian|Chilean|Chinese|Colombian|Comoran|Congolese|Costa Rican|Croatian|Cuban|Cypriot|Czech|Danish|Djibouti|Dominican|Dutch|East Timorese|Ecuadorean|Egyptian|Emirian|Equatorial Guinean|Eritrean|Estonian|Eswatini|Ethiopian|Fijian|Filipino|Finnish|French|Gabonese|Gambian|Georgian|German|Ghanaian|Greek|Grenadian|Guatemalan|Guinea-Bissauan|Guinean|Guyanese|Haitian|Herzegovinian|Honduran|Hungarian|I-Kiribati|Icelander|Indian|Indonesian|Iranian|Iraqi|Irish|Israeli|Italian|Ivorian|Jamaican|Japanese|Jordanian|Kazakhstani|Kenyan|Kittian and Nevisian|Kuwaiti|Kyrgyz|Laotian|Latvian|Lebanese|Liberian|Libyan|Liechtensteiner|Lithuanian|Luxembourger|Macedonian|Malagasy|Malawian|Malaysian|Maldivian|Malian|Maltese|Marshallese|Mauritanian|Mauritian|Mexican|Micronesian|Moldovan|Monacan|Mongolian|Montenegrin|Moroccan|Mozambican|Namibian|Nauruan|Nepalese|New Zealander|Nicaraguan|Nigerian|Nigerien|North Korean|Northern Irish|Norwegian|Omani|Pakistani|Palauan|Panamanian|Papua New Guinean|Paraguayan|Peruvian|Polish|Portuguese|Qatari|Romanian|Russian|Rwandan|Saint Lucian|Salvadoran|Samoan|San Marinese|Sao Tomean|Saudi|Scottish|Senegalese|Serbian|Seychellois|Sierra Leonean|Singaporean|Slovakian|Slovenian|Solomon Islander|Somali|South African|South Korean|South Sudanese|Spanish|Sri Lankan|Sudanese|Surinamer|Swiss|Syrian|Taiwanese|Tajik|Tanzanian|Thai|Togolese|Tongan|Trinidadian or Tobagonian|Tunisian|Turkish|Tuvaluan|Ugandan|Ukrainian|Uruguaian|Uzbekistani|Venezuelan|Vietnamese|Welsh|Yemenite|Zambian|Zimbabwean)$/;
+    const updatedErrors = {};
 
-    if (!name) setErrors({...errors, name:'El nombre no puede estar vacio.'});
-    else {
-        if (name.length < 3) setErrors({...errors, name:"El nombre no puede ser menor a 3 caracteres"})
-        else setErrors({...errors, name: 'Nombre invalido'});
-    };
+    if (!name) {
+        updatedErrors.name = 'El nombre no puede estar vacío.';
+    } else if (name.length < 3 || name.length > 15) {
+        updatedErrors.name = 'El nombre debe tener entre 3 y 15 caracteres.';
+    } else {
+        updatedErrors.name = '';
+    }
 
-    if (!lastName) setErrors({...errors, lastName:'El apellido no puede estar vacio.'});
-    else {
-        if (name.length < 3) setErrors({...errors, lastName:"El apellido no puede ser menor a 3 caracteres"})
-        else setErrors({...errors, lastName: 'Apellido invalido'});
-    };
+    if (lastName.length > 0) {
+        if (lastName[0] === lastName[0].toLowerCase()) {
+            updatedErrors.lastName = 'El apellido debe empezar con mayúscula.';
+        } else {
+            updatedErrors.lastName = '';
+        }
+        if (!lastName) {
+            updatedErrors.lastName = 'El apellido no puede estar vacío.';
+        }
+    }
 
-    if (!nationality) setErrors({...errors, nationality:'La nacionalidad no puede estar vacia.'});
-    else {
-        if (nationalityRegex.test(nationality)) setErrors({...errors, nationality:"Esa nacionaliad no existe o esta mal escrita."})
-        else setErrors({...errors, nationality: 'Nacionalidad invalida.'});
-    };
+    if (!image) {
+        updatedErrors.image = 'Si no quieres agregar una imagen, ingresa "default".';
+    } else {
+        updatedErrors.image = '';
+    }
 
-    if (!image.toLowerCase().endsWith(".jpg") && !image.toLowerCase().endsWith(".png")) setErrors({...errors, image:'La imagen debe ser jpg o png.'});
+    if (!nationality) {
+        updatedErrors.nationality = "La nacionalidad no puede estar vacia.";
+    } else {
+        updatedErrors.nationality = "";
+    }
 
-    if (!bornDate) setErrors({...errors, bornDate:'La fecha de vencimiento no puede estar vacia.'});
-    else {
-        if (bornDate[0] > 2024) setErrors({...errors, name:"El año de nacimiento no puede ser mayor a 2024"})
-        else setErrors({...errors, bornDate: 'Fecha de nacimiento invalida.'});
-    };
+    if (!bornDate) {
+        updatedErrors.bornDate = "La fecha no puede estar vacia.";
+    } else if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(bornDate)) {
+        updatedErrors.bornDate = "La fecha debe ser YYYY-MM-DD";
+    } else {
+        updatedErrors.bornDate = "";
+    }
 
-    if (!description) setErrors({...errors, description:'La descripcion no puede estar vacia.'});
-    else {
-        if (description.length > 500) setErrors({...errors, description:"La descripcion no puede ser mayor a 500 caracteres."})
-        else setErrors({...errors, description: 'Descripcion invalida.'});
-    };
+    if (description.length < 50) {
+        updatedErrors.description = "Se necesita una descripcion de al menos 50 caracteres.";
+    } else {
+        updatedErrors.description = "";
+    }
 
-    if (teams.length > 10) setErrors({...errors, teams:'Solo existen 10 escuderias.'});
-    if (teams.length > 1) {
-        for (let i = 1; i < teams.length; i++) {
-            if (teams[i] === teams[i - 1]) {
-                setErrors({...errors, teams: 'Hay una escuderia repetida.'});
-            };
-        };
-    };
-};
+    setErrors(updatedErrors);
+}
