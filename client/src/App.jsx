@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Detail from './components/Detail/Detail.jsx';
 import Form from './components/Form/Form.jsx';
 import { useSelector } from 'react-redux';
+import About from './components/About/About.jsx';
 
 function App() {
   const [ dataBaseDrivers, setDrivers ] = useState([]);
@@ -20,6 +21,7 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/detail/:id' element={<Detail drivers={drivers}/>}/>
         <Route path='/form' element={<Form drivers={drivers}/>}/>
+        <Route path='/about' element={<About />}/>
       </Routes>
     </div>
   )

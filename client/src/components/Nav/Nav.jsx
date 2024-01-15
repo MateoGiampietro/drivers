@@ -15,6 +15,10 @@ export default function Nav() {
                 <button>Add Driver</button>
             </Link>
             
+            <Link to='/about'>
+                <button>About Me</button>
+            </Link>
+
             <SearchBar/>
         </div>
     )
